@@ -1,0 +1,26 @@
+.calculator {
+    border: solid black 1px;
+
+    height: 380px;
+    width: 400px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc-container {
+    border: solid orange 1px;
+    flex-grow: 1;
+}
+
+.display-bar {
+    border: solid red 1px;
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.row {
+    border: solid purple 1px;
+}
