@@ -6,38 +6,47 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="script.js" defer></script>
         <link rel="stylesheet" href="styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,400&display=swap"
+            rel="stylesheet"
+        />
         <title>My Calculator</title>
     </head>
     <body>
         <div class="calculator">
             <div class="calc-container">
                 <div class="display-bar">
-                    <div class="display">123456</div>
-                    <button class="clear">C</button>
+                    <div class="display"><span>123456</span></div>
+                </div>
+                <div class="row">
+                    <button class="numpad clear">C</button>
+                    <button class="numpad back">←</button>
                 </div>
                 <div class="row">
                     <button class="numpad">7</button>
                     <button class="numpad">8</button>
                     <button class="numpad">9</button>
-                    <button class="multiply">*</button>
+                    <button class="numpad multiply">*</button>
                 </div>
                 <div class="row">
                     <button class="numpad">4</button>
                     <button class="numpad">5</button>
                     <button class="numpad">6</button>
-                    <button class="divide">/</button>
+                    <button class="numpad divide">/</button>
                 </div>
                 <div class="row">
                     <button class="numpad">1</button>
                     <button class="numpad">2</button>
                     <button class="numpad">3</button>
-                    <button class="add">+</button>
+                    <button class="numpad add">+</button>
                 </div>
                 <div class="row">
-                    <button class="decimal">.</button>
-                    <button class="numpad">1</button>
-                    <button class="equals">=</button>
-                    <button class="subtract">-</button>
+                    <button class="numpad decimal">.</button>
+                    <button class="numpad">0</button>
+                    <button class="numpad equals">=</button>
+                    <button class="numpad subtract">-</button>
                 </div>
             </div>
         </div>
