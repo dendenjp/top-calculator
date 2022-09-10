@@ -1,5 +1,21 @@
 'use strict';
 
+let display = document.querySelector('span');
+let firstOperand = 0;
+let secondOperand = 0;
+let currentOperand = 0;
+
+let numPad = Array.from(document.querySelectorAll('.numpad'));
+numPad.forEach((e) =>
+    e.addEventListener('click', function () {
+        if (e.textContent === 'C') display.textContent = '';
+        if (e.textContent === '←') {
+            display.textContent = display.textContent.slice(0, -1);
+        } else display.textContent = display.textContent + e.textContent;
+        firstOperand = Number(display.textContent);
+    })
+);
+
 function add(a, b) {
     return a + b;
 }
@@ -19,11 +35,11 @@ function divide(a, b) {
     } else return a / b;
 }
 
-function operate(a, operand, b) {
-    if (operand === '+') return add(a, b);
-    if (operand === '-') return subtract(a, b);
-    if (operand === '*') return multiply(a, b);
-    if (operand === '/') return divide(a, b);
+function operate(a, operator, b) {
+    if (operator === '+') return add(a, b);
+    if (operator === '-') return subtract(a, b);
+    if (operator === '*') return multiply(a, b);
+    if (operator === '/') return divide(a, b);
 }
 
 console.log(operate(2, '+', 3));
