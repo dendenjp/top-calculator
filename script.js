@@ -1,46 +1,58 @@
 'use strict';
 let firstOperand = 0;
 let secondOperand = 0;
-let pressedOperator = false;
-let pressedEqual = false;
+let operator = '';
+let result = 0;
+console.log(operator);
 
-let displayScreen = document.querySelector('span');
-let backBtn = document.querySelector('.back');
-let clearBtn = document.querySelector('.clear');
+const display = document.querySelector('.display-area');
 
-let operators = Array.from(document.querySelectorAll('.operator'));
-
-let numPad = Array.from(document.querySelectorAll('.numpad'));
+const backBtn = document.querySelector('.back');
+const clearBtn = document.querySelector('.clear');
+const operators = Array.from(document.querySelectorAll('.operator'));
+const numpad = Array.from(document.querySelectorAll('.numpad'));
+// const keypad = Array.from(document.querySelectorAll('.keypad'));
 
 backBtn.addEventListener('click', backSpace);
 clearBtn.addEventListener('click', clearScreen);
-numPad.forEach((e) => e.addEventListener('click', displayOnScreen));
+numpad.forEach((e) => e.addEventListener('click', displayOnScreen));
 operators.forEach((e) => e.addEventListener('click', calculate));
+// keypad.forEach((e) => e.addEventListener('click', calculate));
 
 function displayOnScreen(e) {
-    displayScreen.innerText = +(displayScreen.innerText + e.target.id);
-    // firstOperand = +(displayScreen.innerText + e.target.id);
-    // displayScreen.innerText = firstOperand;
+    display.innerText = '';
+    display.innerText += e.target.innerText;
+    console.log(display.innerText);
 }
 
 function calculate(e) {
-    // displayScreen.innerText = firstOperand;
-    firstOperand = +displayScreen.innerText;
-    console.log(typeof e.target.innerText);
-    if (e.target.innerText === '+') {
-        displayScreen.innertext = '';
-        console.log(firstOperand);
+    if (operator == '') {
+        operator = e.target.textContent;
+        console.log(operator);
+        firstOperand = +display.innerText;
+    } else {
+        secondOperand = +display.innerText;
+        result = operate(firstOperand, operator, secondOperand);
+        displayResult();
+        operator = e.target.textContent;
+        firstOperand = result;
+        result = 0;
     }
 }
 
-function backSpace() {
-    displayScreen.innerText = displayScreen.textContent.slice(0, -1);
-    // firstOperand = +displayScreen.innerText;
+function displayResult() {
+    display.innerText = result;
+}
+
+function backSpace(e) {
+    display.innerText = display.textContent.slice(0, -1);
 }
 
 function clearScreen() {
-    displayScreen.innerText = '';
-    // firstOperand = +displayScreen.innerText;
+    display.innerText = '';
+    result = 0;
+    firstOperand = 0;
+    secondOperand = 0;
 }
 
 function add(a, b) {
@@ -63,13 +75,6 @@ function divide(a, b) {
 }
 
 function operate(a, operator, b) {
-    if (operator === '+') return add(a, b);
-    if (operator === '-') return subtract(a, b);
-    if (operator === '*') return multiply(a, b);
-    if (operator === '/') return divide(a, b);
-}
-/* 
-function operate(a, operator, b) {
     switch (operator) {
         case '+':
             return add(a, b);
@@ -87,4 +92,3 @@ function operate(a, operator, b) {
             alert('Invalid');
     }
 }
- */
