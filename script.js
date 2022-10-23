@@ -5,6 +5,8 @@ let operator = '';
 let result = 0;
 let isDisplayEmpty = true;
 let isOperator = false;
+let isDeletable = false;
+let isRecentlyCalculated = false;
 
 const display = document.querySelector('.display-area');
 
@@ -13,6 +15,7 @@ const clearBtn = document.querySelector('.clear');
 const operators = Array.from(document.querySelectorAll('.operator'));
 const numpad = Array.from(document.querySelectorAll('.numpad'));
 const equalsBtn = document.querySelector('.equals');
+
 // const keypad = Array.from(document.querySelectorAll('.keypad'));
 
 backBtn.addEventListener('click', backSpace);
@@ -23,6 +26,8 @@ equalsBtn.addEventListener('click', equals);
 // keypad.forEach((e) => e.addEventListener('click', calculate));
 
 function displayOnScreen(e) {
+    isDeletable = true;
+    isRecentlyCalculated = false;
     if (display.innerText == 0) {
         display.innerText = '';
     }
@@ -41,7 +46,7 @@ function calculate(e) {
 
         firstOperand = +display.innerText;
         isDisplayEmpty = false;
-    } else {
+    } else if (!isRecentlyCalculated) {
         secondOperand = +display.innerText;
         result =
             Math.round(
@@ -51,23 +56,29 @@ function calculate(e) {
         operator = e.target.textContent;
         firstOperand = result;
         secondOperand = 0;
-
         isDisplayEmpty = false;
     }
 }
 
 function equals(e) {
-    secondOperand = +display.innerText;
-    result =
-        Math.round(operate(firstOperand, operator, secondOperand) * 100000) /
-        100000;
-    displayResult();
-    firstOperand = 0;
-    operator = '';
-    isDisplayEmpty = false;
+    isDeletable = false;
+    if (operator !== '') {
+        secondOperand = +display.innerText;
+        result =
+            Math.round(
+                operate(firstOperand, operator, secondOperand) * 100000
+            ) / 100000;
+        displayResult();
+        firstOperand = 0;
+        operator = '';
+        isDisplayEmpty = false;
+    } else {
+        displayResult();
+    }
 }
 
 function displayResult() {
+    isRecentlyCalculated = true;
     if (result === undefined || result === NaN) {
         display.innerText = 'Error. C to clear.';
     } else if (result !== undefined || result !== NaN) {
@@ -76,7 +87,9 @@ function displayResult() {
 }
 
 function backSpace(e) {
-    display.innerText = display.textContent.slice(0, -1);
+    if (isDeletable) {
+        display.innerText = display.textContent.slice(0, -1);
+    }
 }
 
 function clearScreen() {
